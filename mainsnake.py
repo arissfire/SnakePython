@@ -25,7 +25,7 @@ head.direction = "stop"
 # Snake food
 food = turtle.Turtle()
 food.speed(0)
-food.shape("circle")
+food.shape("square")
 food.color("red")
 food.penup()
 food.goto(0,100)
@@ -78,8 +78,7 @@ def move():
     if head.direction == "right":
         x = head.xcor()
         head.setx(x + 20)
-
-# Keyboard bindings
+#direc
 ar.listen()
 ar.onkeypress(go_up, "w")
 ar.onkeypress(go_down, "s")
@@ -103,17 +102,17 @@ while True:
         # Clear the segments list
         segments.clear()
 
-        # Reset the score
+        # Reset score
         score = 0
 
-        # Reset the delay
+        # Reset delay
         delay = 0.1
 
         pen.clear()
-        pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal")) 
+        pen.write("Điểm: {}  Kỷ Lục: {}".format(score, high_score), align="center", font=("Courier", 24, "normal")) 
 
 
-    # Check for a collision with the food
+    # Check Food
     if head.distance(food) < 20:
         # Move the food to a random spot
         x = random.randint(-290, 290)
@@ -132,21 +131,21 @@ while True:
         delay -= 0.001
 
         # Increase the score
-        score += 10
+        score += 1
 
         if score > high_score:
             high_score = score
         
         pen.clear()
-        pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal")) 
+        pen.write("Điểm: {}  Kỷ Lục: {}".format(score, high_score), align="center", font=("Courier", 24, "normal")) 
 
-    # Move the end segments first in reverse order
+    
     for index in range(len(segments)-1, 0, -1):
         x = segments[index-1].xcor()
         y = segments[index-1].ycor()
         segments[index].goto(x, y)
 
-    # Move segment 0 to where the head is
+
     if len(segments) > 0:
         x = head.xcor()
         y = head.ycor()
@@ -154,29 +153,29 @@ while True:
 
     move()    
 
-    # Check for head collision with the body segments
+   
     for segment in segments:
         if segment.distance(head) < 20:
             time.sleep(1)
             head.goto(0,0)
             head.direction = "stop"
         
-            # Hide the segments
+            # Hide segments
             for segment in segments:
                 segment.goto(1000, 1000)
         
             # Clear the segments list
             segments.clear()
 
-            # Reset the score
+            # Reset score
             score = 0
 
-            # Reset the delay
+            # Reset delay
             delay = 0.1
         
-            # Update the score display
+            # Update score display
             pen.clear()
-            pen.write("Score: {}  High Score: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
+            pen.write("Điểm: {}  Kỷ Lục: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
 
     time.sleep(delay)
 ar.mainloop()
