@@ -13,7 +13,7 @@ ar.title("SNAKE GAME")
 
 
 
-# Snake head
+### Đầu Snake ###
 head = turtle.Turtle()
 head.speed(0)
 head.shape("square")
@@ -22,7 +22,7 @@ head.penup()
 head.goto(0,0)
 head.direction = "stop"
 
-# Snake food
+### Food ###
 food = turtle.Turtle()
 food.speed(0)
 food.shape("square")
@@ -32,7 +32,7 @@ food.goto(0,100)
 
 segments = []
 
-# Pen
+### Điểm số ###
 pen = turtle.Turtle()
 pen.speed(0)
 pen.shape("square")
@@ -45,7 +45,7 @@ pen.write("Điểm: 0  Kỷ Lục: 0", align="center", font=("Courier", 24, "nor
 score = 0
 high_score = 0
 delay = 0.05
-# Functions
+### Functions ###
 def go_up():
     if head.direction != "down":
         head.direction = "up"
@@ -78,48 +78,46 @@ def move():
     if head.direction == "right":
         x = head.xcor()
         head.setx(x + 20)
-#direc
+###Di chuyển###
 ar.listen()
 ar.onkeypress(go_up, "w")
 ar.onkeypress(go_down, "s")
 ar.onkeypress(go_left, "a")
 ar.onkeypress(go_right, "d")
 
-# Main game loop
+### Main game ###
 while True:
     ar.update()
 
-    # Check for a collision with the border
     if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
         time.sleep(1)
         head.goto(0,0)
         head.direction = "stop"
 
-        # Hide the segments
         for segment in segments:
             segment.goto(1000, 1000)
         
-        # Clear the segments list
+    
         segments.clear()
 
-        # Reset score
+        ###Reset điểm số###
         score = 0
 
-        # Reset delay
+        ### Reset delay ###
         delay = 0.1
 
         pen.clear()
         pen.write("Điểm: {}  Kỷ Lục: {}".format(score, high_score), align="center", font=("Courier", 24, "normal")) 
 
 
-    # Check Food
+    ### CheckFood ###
     if head.distance(food) < 20:
-        # Move the food to a random spot
+        ### Random thức ăn###
         x = random.randint(-290, 290)
         y = random.randint(-290, 290)
         food.goto(x,y)
 
-        # Add a segment
+        ### Tạo segment (thân) ###
         new_segment = turtle.Turtle()
         new_segment.speed(0)
         new_segment.shape("square")
@@ -127,10 +125,9 @@ while True:
         new_segment.penup()
         segments.append(new_segment)
 
-        # Shorten the delay
         delay -= 0.001
 
-        # Increase the score
+        ### Tăng điểm score###
         score += 1
 
         if score > high_score:
@@ -160,20 +157,20 @@ while True:
             head.goto(0,0)
             head.direction = "stop"
         
-            # Hide segments
+            ### Hide segments###
             for segment in segments:
                 segment.goto(1000, 1000)
         
-            # Clear the segments list
+            ### Xoá segments###
             segments.clear()
 
-            # Reset score
+            ### Reset điểm số bằng 0 ban đầu ###
             score = 0
 
-            # Reset delay
+            ### Reset delay ###
             delay = 0.1
         
-            # Update score display
+            ### Cập nhật điểm số ###
             pen.clear()
             pen.write("Điểm: {}  Kỷ Lục: {}".format(score, high_score), align="center", font=("Courier", 24, "normal"))
 
